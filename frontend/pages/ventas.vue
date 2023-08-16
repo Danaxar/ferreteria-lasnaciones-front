@@ -41,11 +41,20 @@
       <!-- Vista buscar teclado (encima de todo) -->
       <div v-show="buscarProducto" id="buscarProductoView">
         <div id="buscarproducto-content">
+          <!-- Título -->
           <div>
             <h1>Búsqueda de productos</h1>
           </div>
-          <div><input type="text" /></div>
+          <!-- Filtro -->
           <div>
+            <input
+              type="text"
+              v-model="filtroProducto"
+              @change="filtrarProductos"
+            />
+          </div>
+          <!-- Tabla -->
+          <div class="center-element">
             <table>
               <thead>
                 <tr>
@@ -57,7 +66,7 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="producto in listaProductos"
+                  v-for="producto in listasProductosFiltrados"
                   :key="producto.id"
                   class="fila-producto"
                 >
@@ -81,9 +90,14 @@
               </tbody>
             </table>
           </div>
-          <div>
-            <button @click="buscarProductoButton">Aceptar</button>
-            <button @click="buscarProductoButton">Cancelar</button>
+          <!-- Botones -->
+          <div id="botones-filtro">
+            <button @click="buscarProductoButton" class="btn btn-success">
+              Aceptar
+            </button>
+            <button @click="buscarProductoButton" class="btn btn-danger">
+              Cancelar
+            </button>
           </div>
         </div>
       </div>
@@ -100,7 +114,9 @@ export default {
     return {
       buscarProducto: false,
       listaProductos: [],
+      listasProductosFiltrados: [],
       productoSeleccionado: null,
+      filtroProducto: '',
     }
   },
   methods: {
@@ -111,6 +127,15 @@ export default {
       const respuesta = await axios.get('http://localhost:8080/api/inventarios')
       console.log('Lista de productos: ', respuesta.data)
       this.listaProductos = respuesta.data
+    },
+    filtrarProductos() {
+      if (this.filtroProducto === '') {
+        this.listasProductosFiltrados = []
+        return
+      }
+      this.listasProductosFiltrados = this.listaProductos.filter((producto) =>
+        producto.producto.toLowerCase().includes(this.filtroProducto)
+      )
     },
     helloworld() {
       console.log('hola mundo')
@@ -159,6 +184,10 @@ export default {
   overflow-y: auto;
 }
 
+#buscarproducto-content div {
+  margin: 1em;
+}
+
 #buscarproducto-content h1 {
   text-align: center;
 }
@@ -176,6 +205,23 @@ tr {
   border: 1px solid black;
 }
 
+#buscarproducto-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#botones-filtro {
+  display: flex;
+  justify-content: space-around;
+}
+
+#botones-filtro button {
+  width: 20%;
+  height: 3em;
+  border-radius: 30px 30px;
+  font-size: 25px;
+}
+
 .button-yellow {
   color: black;
   background-color: yellow;
@@ -186,6 +232,12 @@ tr {
 
 .flex {
   display: flex;
+}
+
+.center-element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .space-around {
