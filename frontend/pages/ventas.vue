@@ -55,6 +55,30 @@
                   <th>Inventario</th>
                 </tr>
               </thead>
+              <tbody>
+                <tr
+                  v-for="producto in listaProductos"
+                  :key="producto.id"
+                  class="fila-producto"
+                >
+                  <td @click="helloworld" class="celda-producto">
+                    {{ producto.producto }}
+                  </td>
+                  <td @click="helloworld" class="celda-producto">
+                    {{ producto.pventa }}
+                  </td>
+                  <td @click="helloworld" class="celda-producto">
+                    {{
+                      producto.idDepartamento === null
+                        ? '  Sin departamento  '
+                        : producto.idDepartamento
+                    }}
+                  </td>
+                  <td @click="helloworld" class="celda-producto">
+                    {{ producto.existencia }}
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div>
@@ -67,6 +91,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 import Navbar from '~/components/navbar.vue'
 export default {
   name: 'VentasPage',
@@ -74,12 +99,25 @@ export default {
   data() {
     return {
       buscarProducto: false,
+      listaProductos: [],
+      productoSeleccionado: null,
     }
   },
   methods: {
     buscarProductoButton() {
       this.buscarProducto = !this.buscarProducto
     },
+    async pedirListaProductos() {
+      const respuesta = await axios.get('http://localhost:8080/api/inventarios')
+      console.log('Lista de productos: ', respuesta.data)
+      this.listaProductos = respuesta.data
+    },
+    helloworld() {
+      console.log('hola mundo')
+    },
+  },
+  mounted() {
+    this.pedirListaProductos()
   },
 }
 </script>
@@ -107,6 +145,9 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #buscarproducto-content {
@@ -114,8 +155,25 @@ export default {
   color: black;
   width: 80vw;
   height: 80vh;
-  margin: auto;
   border-radius: 30px 30px;
+  overflow-y: auto;
+}
+
+#buscarproducto-content h1 {
+  text-align: center;
+}
+
+#buscarproducto-content input[type='text'] {
+  width: 100%;
+  height: 2.6em;
+  font-size: 35px;
+}
+
+#buscarproducto-content table,
+th,
+td,
+tr {
+  border: 1px solid black;
 }
 
 .button-yellow {
@@ -132,5 +190,9 @@ export default {
 
 .space-around {
   justify-content: space-around;
+}
+
+.fila-producto:hover {
+  background-color: #47432c;
 }
 </style>
