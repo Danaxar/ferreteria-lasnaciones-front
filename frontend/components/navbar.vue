@@ -51,10 +51,8 @@ export default {
 </script>
 <style scooped>
 #main {
-  width: 10vw;
+  border: 1px solid green;
   background-color: #4c5f7a;
-  /* color: white; */
-  height: 100vh;
 }
 
 #main ul li {
@@ -92,6 +90,5 @@ export default {
   width: 10vw;
   display: flex;
   flex-direction: column;
-  /* background-color: aquamarine; */
 }
 </style>
