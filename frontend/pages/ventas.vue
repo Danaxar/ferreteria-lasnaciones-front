@@ -32,6 +32,16 @@
                 <th>Existencias</th>
               </tr>
             </thead>
+            <tbody>
+              <tr v-for="producto in carrito" :key="producto.id">
+                <td>{{ producto.codigoProducto }}</td>
+                <td>{{ producto.producto }}</td>
+                <td>{{ producto.pventa }}</td>
+                <td><input type="number" value="1" /></td>
+                <td>{{ producto.pventa }}</td>
+                <td>{{ producto.existencia }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <!-- Vista previa -->
@@ -70,20 +80,20 @@
                   :key="producto.id"
                   class="fila-producto"
                 >
-                  <td @click="helloworld" class="celda-producto">
+                  <td @click="addCarrito(producto)" class="celda-producto">
                     {{ producto.producto }}
                   </td>
-                  <td @click="helloworld" class="celda-producto">
+                  <td @click="addCarrito(producto)" class="celda-producto">
                     {{ producto.pventa }}
                   </td>
-                  <td @click="helloworld" class="celda-producto">
+                  <td @click="addCarrito(producto)" class="celda-producto">
                     {{
                       producto.idDepartamento === null
                         ? '  Sin departamento  '
                         : producto.idDepartamento
                     }}
                   </td>
-                  <td @click="helloworld" class="celda-producto">
+                  <td @click="addCarrito(producto)" class="celda-producto">
                     {{ producto.existencia }}
                   </td>
                 </tr>
@@ -113,10 +123,11 @@ export default {
   data() {
     return {
       buscarProducto: false,
-      listaProductos: [],
+      listaProductos: [], // 3000 productos
       listasProductosFiltrados: [],
       productoSeleccionado: null,
       filtroProducto: '',
+      carrito: [],
     }
   },
   methods: {
@@ -133,9 +144,18 @@ export default {
         this.listasProductosFiltrados = []
         return
       }
-      this.listasProductosFiltrados = this.listaProductos.filter((producto) =>
-        producto.producto.toLowerCase().includes(this.filtroProducto)
+      this.listasProductosFiltrados = this.listaProductos.filter(
+        (producto) =>
+          producto.producto.toLowerCase().includes(this.filtroProducto) ||
+          producto.producto.includes(this.filtroProducto)
       )
+    },
+    addCarrito(producto) {
+      this.carrito.push(producto)
+      this.buscarProducto = false
+      this.filtroProducto = ''
+      this.listasProductosFiltrados = []
+      console.log(this.carrito)
     },
     helloworld() {
       console.log('hola mundo')
@@ -160,6 +180,12 @@ export default {
   background-color: #003657;
   border-radius: 30px 30px;
   height: 85vh;
+}
+
+#ticket-info table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
 }
 
 #buscarProductoView {
