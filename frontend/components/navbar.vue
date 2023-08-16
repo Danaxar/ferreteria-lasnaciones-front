@@ -2,33 +2,43 @@
   <div id="main">
     <ul>
       <li>
-        <div class="nav-element">
-          <img src="../static/ventas.png" />
-          <a href="/ventas">Ventas</a>
+        <div>
+          <a href="/ventas" class="nav-element">
+            <img src="../static/ventas.png" />
+            <span>Ventas</span>
+          </a>
         </div>
       </li>
       <li>
-        <div class="nav-element">
-          <img src="../static/productos.png" />
-          <a href="/productos">Productos</a>
+        <div>
+          <a href="/productos" class="nav-element">
+            <img src="../static/productos.png" />
+            <span>Productos</span>
+          </a>
         </div>
       </li>
       <li>
-        <div class="nav-element">
-          <img src="../static/inventario.png" />
-          <a href="/inventario">Inventario</a>
+        <div>
+          <a href="/inventario" class="nav-element">
+            <img src="../static/inventario.png" />
+            <span>Inventario</span>
+          </a>
         </div>
       </li>
       <li>
-        <div class="nav-element">
-          <img src="../static/reportes.png" />
-          <a href="/reportes">Reportes</a>
+        <div>
+          <a href="/reportes" class="nav-element">
+            <img src="../static/reportes.png" />
+            <span>Reportes</span>
+          </a>
         </div>
       </li>
       <li>
-        <div class="nav-element">
-          <img src="../static/ajustes.png" />
-          <a href="/ajustes">Ajustes</a>
+        <div>
+          <a href="/ajustes" class="nav-element">
+            <img src="../static/ajustes.png" />
+            <span>Ajustes</span>
+          </a>
         </div>
       </li>
     </ul>
