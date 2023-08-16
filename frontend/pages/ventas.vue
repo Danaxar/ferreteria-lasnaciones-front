@@ -271,6 +271,7 @@ tr {
 }
 
 .fila-producto:hover {
-  background-color: #47432c;
+  background-color: white;
+  color: black;
 }
 </style>
