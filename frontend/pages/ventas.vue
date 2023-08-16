@@ -39,7 +39,30 @@
       </div>
 
       <!-- Vista buscar teclado (encima de todo) -->
-      <div v-show="buscarProducto" id="buscarProductoView">HOLA MUNDO</div>
+      <div v-show="buscarProducto" id="buscarProductoView">
+        <div id="buscarproducto-content">
+          <div>
+            <h1>Búsqueda de productos</h1>
+          </div>
+          <div><input type="text" /></div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Descripción del producto</th>
+                  <th>Precio</th>
+                  <th>Departamento</th>
+                  <th>Inventario</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div>
+            <button @click="buscarProductoButton">Aceptar</button>
+            <button @click="buscarProductoButton">Cancelar</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,14 +100,22 @@ export default {
 }
 
 #buscarProductoView {
-  z-index: 100;
   color: white;
-  background-color: yellowgreen;
-  width: 1000px;
-  height: 1000px;
+  background-color: rgba(0, 6, 6, 0.5);
+  width: 100vw;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
+}
+
+#buscarproducto-content {
+  background-color: #ffd700;
+  color: black;
+  width: 80vw;
+  height: 80vh;
+  margin: auto;
+  border-radius: 30px 30px;
 }
 
 .button-yellow {
