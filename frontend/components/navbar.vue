@@ -51,7 +51,6 @@ export default {
 </script>
 <style scooped>
 #main {
-  border: 1px solid green;
   background-color: #4c5f7a;
 }
 

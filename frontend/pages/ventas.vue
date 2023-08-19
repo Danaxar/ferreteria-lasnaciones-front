@@ -19,7 +19,7 @@
         <!-- Tabla de productos -->
         <div id="ticket-info">
           <span>
-            <h1 style="background-color: yellow; width: 200px">Ticker X</h1>
+            <h1 style="background-color: yellow; width: 200px">Ticket X</h1>
           </span>
           <table>
             <thead>
@@ -33,25 +33,32 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="producto in carrito" :key="producto.id">
+              <tr v-for="producto in carrito" :key="producto.codigoProducto">
                 <td>{{ producto.codigoProducto }}</td>
                 <td>{{ producto.producto }}</td>
                 <td>{{ producto.pventa }}</td>
-                <td><input type="number" value="1" /></td>
+                <td><input type="number" v-bind:value="producto.cantidad" @change="updateCantidadProducto(producto)" /></td>
                 <td>{{ producto.pventa }}</td>
                 <td>{{ producto.existencia }}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <!-- Vista previa -->
-        <div id="ticket-preview">
-          <img src="../static/logo.png" alt="logo" width="250px"/>
-          <p>
-            LAS NACIONES 2453
-            <br />
-            ferreterialasnaciones@gmail.com
-          </p>
+        <!-- Vista previa del ticket-->
+        <div>
+          <div id="ticket-preview">
+            <img src="../static/logo.png" alt="logo" width="250px"/>
+            <p>
+              LAS NACIONES 2453
+              <br />
+              ferreterialasnaciones@gmail.com
+            </p>
+          </div>
+          <div>
+            <button class="button-yellow" @click="cobrar">
+              COBRAR
+            </button>
+          </div>
         </div>
       </div>
 
@@ -59,7 +66,12 @@
       <div v-show="buscarProducto" id="buscarProductoView">
         <div id="buscarproducto-content">
           <!-- Título -->
-          <div>
+          <div >
+            <div style="display: flex; justify-content: right;">
+              <button class="btn btn-danger" @click="buscarProductoButton">
+               X
+              </button>
+            </div>
             <h1>Búsqueda de productos</h1>
           </div>
           <!-- Filtro -->
@@ -107,15 +119,6 @@
               </tbody>
             </table>
           </div>
-          <!-- Botones -->
-          <div id="botones-filtro">
-            <button @click="buscarProductoButton" class="btn btn-success">
-              Aceptar
-            </button>
-            <button @click="buscarProductoButton" class="btn btn-danger">
-              Cancelar
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -143,7 +146,6 @@ export default {
     },
     async pedirListaProductos() {
       const respuesta = await axios.get('http://localhost:8080/api/inventarios')
-      console.log('Lista de productos: ', respuesta.data)
       this.listaProductos = respuesta.data
     },
     filtrarProductos() {
@@ -158,15 +160,23 @@ export default {
       )
     },
     addCarrito(producto) {
+      producto.cantidad = 1;
       this.carrito.push(producto)
       this.buscarProducto = false
       this.filtroProducto = ''
       this.listasProductosFiltrados = []
       console.log(this.carrito)
     },
-    helloworld() {
-      console.log('hola mundo')
+    cobrar(){
+      console.log(this.carrito);
     },
+    updateCantidadProducto(producto){
+      producto.cantidad++;
+      console.log(producto.cantidad);
+    },
+    printProdcut(producto){
+      console.log(producto);
+    }
   },
   mounted() {
     this.pedirListaProductos()
@@ -187,6 +197,7 @@ export default {
   background-color: #003657;
   border-radius: 30px 30px;
   height: 85vh;
+  width: 60vw;
 }
 
 #ticket-info table {
@@ -244,7 +255,7 @@ tr {
   font-size: 30px;
 }
 
-#buscarproducto-content div[class='center-element'] {
+.div-table-center {
   height: 50vh;
   overflow-y: auto;
 }
