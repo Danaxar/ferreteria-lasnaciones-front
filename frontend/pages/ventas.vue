@@ -15,7 +15,7 @@
       </div>
 
       <!-- Contenido -->
-      <div class="flex">
+      <div class="flex" style="justify-content: space-around;">
         <!-- Tabla de productos -->
         <div id="ticket-info">
           <span>
@@ -45,7 +45,14 @@
           </table>
         </div>
         <!-- Vista previa -->
-        <div></div>
+        <div id="ticket-preview">
+          <img src="../static/logo.png" alt="logo" width="250px"/>
+          <p>
+            LAS NACIONES 2453
+            <br />
+            ferreterialasnaciones@gmail.com
+          </p>
+        </div>
       </div>
 
       <!-- Vista buscar teclado (encima de todo) -->
@@ -64,7 +71,7 @@
             />
           </div>
           <!-- Tabla -->
-          <div class="center-element">
+          <div class="div-table-center">
             <table>
               <thead>
                 <tr>
@@ -207,7 +214,7 @@ export default {
   width: 80vw;
   height: 80vh;
   border-radius: 30px 30px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 #buscarproducto-content div {
@@ -234,6 +241,12 @@ tr {
 #buscarproducto-content table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 30px;
+}
+
+#buscarproducto-content div[class='center-element'] {
+  height: 50vh;
+  overflow-y: auto;
 }
 
 #botones-filtro {
@@ -248,6 +261,11 @@ tr {
   font-size: 25px;
 }
 
+#ticket-preview{
+  color:white;
+  background-color: #474040;
+}
+
 .button-yellow {
   color: black;
   background-color: yellow;
@@ -260,10 +278,10 @@ tr {
   display: flex;
 }
 
-.center-element {
+.div-table-center {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .space-around {
