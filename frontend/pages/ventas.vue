@@ -63,7 +63,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="producto in carrito" :key="producto.codigoProducto">
+                  <tr v-for="producto in ticket" :key="producto.codigoProducto">
                     <td>{{ producto.cantidad }}</td>
                     <td>{{ producto.producto }}</td>
                     <td>{{ producto.pventa }}</td>
@@ -156,6 +156,7 @@ export default {
       productoSeleccionado: null,
       filtroProducto: '',
       carrito: [],
+      ticket: []
     }
   },
   methods: {
@@ -182,6 +183,7 @@ export default {
     addCarrito(producto) {
       producto.cantidad = 1;
       this.carrito.push(producto)
+      this.ticket = JSON.parse(JSON.stringify(this.carrito))
       this.buscarProducto = false
       this.filtroProducto = ''
       this.listasProductosFiltrados = []
@@ -192,6 +194,7 @@ export default {
     },
     updateCantidadProducto(producto){
       producto.cantidad++;
+      this.ticket = JSON.parse(JSON.stringify(this.carrito))
       console.log(producto.cantidad);
     },
     printProdcut(producto){
