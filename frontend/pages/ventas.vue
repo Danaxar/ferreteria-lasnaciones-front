@@ -53,6 +53,24 @@
               <br />
               ferreterialasnaciones@gmail.com
             </p>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cant.</th>
+                    <th>Descripción</th>
+                    <th>Importe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="producto in carrito" :key="producto.codigoProducto">
+                    <td>{{ producto.cantidad }}</td>
+                    <td>{{ producto.producto }}</td>
+                    <td>{{ producto.pventa }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div>
             <button class="button-yellow" @click="cobrar">
@@ -143,6 +161,8 @@ export default {
   methods: {
     buscarProductoButton() {
       this.buscarProducto = !this.buscarProducto
+      this.filtroProducto = ''
+      this.listasProductosFiltrados = []
     },
     async pedirListaProductos() {
       const respuesta = await axios.get('http://localhost:8080/api/inventarios')
@@ -180,6 +200,9 @@ export default {
   },
   mounted() {
     this.pedirListaProductos()
+  },
+  updated() {
+    
   },
 }
 </script>
