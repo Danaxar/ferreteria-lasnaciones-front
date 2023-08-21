@@ -30,6 +30,7 @@
                 <th>Cantidad</th>
                 <th>Importe</th>
                 <th>Existencias</th>
+                <th>Borrar</th>
               </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@
                 <td><input type="number" v-bind:value="producto.cantidad" @change="updateCantidadProducto(producto)" /></td>
                 <td>{{ producto.pventa }}</td>
                 <td>{{ producto.existencia }}</td>
+                <td><button @click="quitarProducto(producto)">❌</button></td>
               </tr>
             </tbody>
           </table>
@@ -188,6 +190,12 @@ export default {
       this.filtroProducto = ''
       this.listasProductosFiltrados = []
       console.log(this.carrito)
+    },
+    quitarProducto(producto) {
+      this.carrito = this.carrito.filter(
+        (productoCarrito) => productoCarrito.codigoProducto !== producto.codigoProducto
+      )
+      this.ticket = JSON.parse(JSON.stringify(this.carrito))
     },
     cobrar(){
       console.log(this.carrito);
