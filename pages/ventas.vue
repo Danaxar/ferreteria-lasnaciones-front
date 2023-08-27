@@ -3,10 +3,10 @@
     <Navbar />
     <div id="contenido">
       <!-- Botones superiores -->
-      <div class="flex space-around">
-        <span>
+      <div style="display: flex; justify-content: space-around">
+        <span id="buscarProductoButton">
           <button @click="buscarProductoButton">⌨️</button>
-          <input type="text" placeholder="Buscar producto" class="form-control"/>
+          <input type="text" placeholder="Buscar producto" />
         </span>
         <button type="button" class="btn button-yellow">Producto común</button>
         <button type="button" class="btn button-yellow">Cotizar</button>
@@ -15,22 +15,22 @@
       </div>
 
       <!-- Contenido -->
-      <div class="flex" style="justify-content: space-around;">
+      <div class="flex" style="justify-content: space-around">
         <!-- Tabla de productos -->
         <div id="ticket-info">
           <span>
-            <h1 style="background-color: yellow; width: 200px">Ticket</h1>
+            <h1 style="color: white; text-align: center">Ticket</h1>
           </span>
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Producto</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Importe</th>
-                <th scope="col">Existencias</th>
-                <th scope="col">Borrar</th>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Importe</th>
+                <th>Existencias</th>
+                <th>Borrar</th>
               </tr>
             </thead>
             <tbody>
@@ -38,10 +38,20 @@
                 <td>{{ producto.codigoProducto }}</td>
                 <td>{{ producto.producto }}</td>
                 <td>{{ producto.pventa }}</td>
-                <td><input type="number" v-bind:value="producto.cantidad" @change="updateCantidadProducto(producto)" /></td>
+                <td>
+                  <input
+                    type="number"
+                    v-bind:value="producto.cantidad"
+                    @change="updateCantidadProducto(producto)"
+                  />
+                </td>
                 <td>{{ producto.pventa }}</td>
                 <td>{{ producto.existencia }}</td>
-                <td><button @click="quitarProducto(producto)">  <i class="bi bi-trash3"/> </button></td>
+                <td>
+                  <button @click="quitarProducto(producto)">
+                    <i class="bi bi-trash3" />
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -49,14 +59,14 @@
         <!-- Vista previa del ticket-->
         <div>
           <div id="ticket-preview">
-            <img src="../static/logo.png" alt="logo" width="250px"/>
+            <img src="../static/logo.png" alt="logo" width="250px" />
             <p>
               LAS NACIONES 2453
               <br />
               ferreterialasnaciones@gmail.com
             </p>
             <div>
-              <table>
+              <table class="table">
                 <thead>
                   <tr>
                     <th>Cant.</th>
@@ -75,9 +85,7 @@
             </div>
           </div>
           <div>
-            <button class="button-yellow" @click="cobrar">
-              COBRAR
-            </button>
+            <button class="button-yellow" @click="cobrar">COBRAR</button>
           </div>
         </div>
       </div>
@@ -86,10 +94,10 @@
       <div v-show="buscarProducto" id="buscarProductoView">
         <div id="buscarproducto-content">
           <!-- Título -->
-          <div >
-            <div style="display: flex; justify-content: right;">
+          <div>
+            <div style="display: flex; justify-content: right">
               <button class="btn btn-danger" @click="buscarProductoButton">
-               X
+                X
               </button>
             </div>
             <h1>Búsqueda de productos</h1>
@@ -158,7 +166,7 @@ export default {
       productoSeleccionado: null,
       filtroProducto: '',
       carrito: [],
-      ticket: []
+      ticket: [],
     }
   },
   methods: {
@@ -183,7 +191,7 @@ export default {
       )
     },
     addCarrito(producto) {
-      producto.cantidad = 1;
+      producto.cantidad = 1
       this.carrito.push(producto)
       this.ticket = JSON.parse(JSON.stringify(this.carrito))
       this.buscarProducto = false
@@ -193,28 +201,27 @@ export default {
     },
     quitarProducto(producto) {
       this.carrito = this.carrito.filter(
-        (productoCarrito) => productoCarrito.codigoProducto !== producto.codigoProducto
+        (productoCarrito) =>
+          productoCarrito.codigoProducto !== producto.codigoProducto
       )
       this.ticket = JSON.parse(JSON.stringify(this.carrito))
     },
-    cobrar(){
-      console.log(this.carrito);
+    cobrar() {
+      console.log(this.carrito)
     },
-    updateCantidadProducto(producto){
-      producto.cantidad++;
+    updateCantidadProducto(producto) {
+      producto.cantidad++
       this.ticket = JSON.parse(JSON.stringify(this.carrito))
-      console.log(producto.cantidad);
+      console.log(producto.cantidad)
     },
-    printProdcut(producto){
-      console.log(producto);
-    }
+    printProdcut(producto) {
+      console.log(producto)
+    },
   },
   mounted() {
     this.pedirListaProductos()
   },
-  updated() {
-    
-  },
+  updated() {},
 }
 </script>
 <style scoped>
@@ -258,7 +265,7 @@ export default {
   color: black;
   width: 80vw;
   height: 80vh;
-  border-radius: 30px 30px;
+  border-radius: 25px 25px;
   /* overflow-y: auto; */
 }
 
@@ -276,18 +283,28 @@ export default {
   font-size: 35px;
 }
 
-/* #buscarproducto-content table,
-th,
-td,
-tr {
-  border: 1px solid black;
-} */
-/* 
 #buscarproducto-content table {
   width: 100%;
   border-collapse: collapse;
   font-size: 30px;
-} */
+}
+
+#buscarProductoButton {
+  display: flex;
+  font-size: 30px;
+  background-color: #ffd700;
+  /* Quitar bordes al botón */
+}
+
+#buscarProductoButton button,
+#buscarProductoButton input[type='text'] {
+  border: none;
+  background-color: #ffd700;
+}
+/* Cambiar color placeholder button */
+#buscarProductoButton input[type='text']::placeholder {
+  color: black;
+}
 
 .div-table-center {
   height: 50vh;
@@ -306,8 +323,8 @@ tr {
   font-size: 25px;
 }
 
-#ticket-preview{
-  color:white;
+#ticket-preview {
+  color: white;
   background-color: #474040;
 }
 
